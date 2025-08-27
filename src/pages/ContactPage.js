@@ -1,7 +1,7 @@
 // src/pages/ContactPage.js
 import React, { useState } from "react";
 import { Box, Typography, TextField, Button, Grid, Paper, Alert } from "@mui/material";
-import Header from "../components/layout/Header";
+//import Header from "../components/layout/Header";
 import Footer from "../components/layout/Footer";
 
 export default function ContactPage() {
@@ -36,7 +36,7 @@ export default function ContactPage() {
 
     return (
         <Box>
-            <Header />
+            
 
             <Box sx={{ py: 5, px: 2, maxWidth: 800, mx: "auto" }}>
                 <Typography variant="h4" gutterBottom textAlign="center">

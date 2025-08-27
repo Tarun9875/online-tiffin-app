@@ -1,4 +1,4 @@
-// Mock API for Tiffin Menu
+// Mock Tiffin Menu API
 export const getTiffinMenu = async () => {
     return new Promise((resolve) => {
         setTimeout(() => {
@@ -73,11 +73,27 @@ export const getTiffinMenu = async () => {
     });
 };
 
-// Mock API for placing an order
+// Mock orders database
+let ordersDb = [];
+
+// Get orders by customer
+export const getOrders = async (customerId) => {
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            const userOrders = ordersDb.filter(order => order.customerId === customerId);
+            resolve({ data: userOrders });
+        }, 500);
+    });
+};
+
+// Place a new order
 export const placeOrder = async (orderData) => {
     return new Promise((resolve) => {
         setTimeout(() => {
-            console.log("Order placed:", orderData); // Log to console
+            // Assign an ID and save to orders DB
+            const newOrder = { ...orderData, id: ordersDb.length + 1, customerId: orderData.customerId || 1 };
+            ordersDb.push(newOrder);
+            console.log("Order placed:", newOrder);
             resolve({ success: true, message: "Order placed successfully!" });
         }, 500);
     });
