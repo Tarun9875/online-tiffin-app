@@ -18,7 +18,7 @@ const AdminHeader = () => {
         <Typography variant="h6" sx={{ flexGrow: 1 }}>
           Admin Dashboard
         </Typography>
-        {user && user.role === "admin" && (
+        {user?.role === "admin" && (
           <Box>
             <Button color="inherit" onClick={() => navigate("/admin/dashboard")}>
               Dashboard

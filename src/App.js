@@ -1,9 +1,15 @@
 // src/App.js
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./auth/authContext";
 
 // Layout
 import Header from "./components/layout/Header";
+import Footer from "./components/layout/Footer";
+
+// Admin Layout
+import AdminHeader from "./components/layout/AdminHeader";
+import AdminFooter from "./components/layout/AdminFooter";
 
 // Customer Pages
 import HomePage from "./pages/HomePage";
@@ -26,36 +32,32 @@ import NotFoundPage from "./pages/NotFoundPage";
 
 function App() {
   return (
-    <Router>
-      {/* Header appears on all pages */}
-      <Header />
-
-      {/* Main content */}
-      <div style={{ paddingTop: "70px" }}>
+    <AuthProvider>
+      <Router>
         <Routes>
           {/* Customer Routes */}
-          <Route path="/" element={<HomePage />} />
-          <Route path="/customer-login" element={<CustomerLoginPage />} />
-          <Route path="/customer-register" element={<CustomerRegisterPage />} />
-          <Route path="/customer-tiffin-menu" element={<TiffinMenuPage />} />
-          <Route path="/order" element={<OrderPage />} />
-          <Route path="/my-orders" element={<MyOrders />} />
-          <Route path="/my-account" element={<MyAccountPage />} />
-          <Route path="/edit-account" element={<EditMyProfilePage />} />
+          <Route path="/" element={<><Header /><HomePage /></>} />
+          <Route path="/customer-login" element={<><Header /><CustomerLoginPage /><Footer/></>} />
+          <Route path="/customer-register" element={<><Header /><CustomerRegisterPage /><Footer/></>} />
+          <Route path="/customer-tiffin-menu" element={<><Header /><TiffinMenuPage /></>} />
+          <Route path="/order" element={<><Header /><OrderPage /></>} />
+          <Route path="/my-orders" element={<><Header /><MyOrders /></>} />
+          <Route path="/my-account" element={<><Header /><MyAccountPage /></>} />
+          <Route path="/edit-account" element={<><Header /><EditMyProfilePage /></>} />
 
           {/* Admin Routes */}
-          <Route path="/admin/login" element={<AdminLoginPage />} />
-          <Route path="/admin/dashboard" element={<AdminDashboardPage />} />
+          <Route path="/admin/login" element={<><AdminLoginPage /></>} />
+          <Route path="/admin/dashboard" element={<><AdminHeader /><AdminDashboardPage /><AdminFooter /></>} />
 
           {/* Common Routes */}
-          <Route path="/about-us" element={<AboutUsPage />} />
-          <Route path="/contact" element={<ContactPage />} />
+          <Route path="/about-us" element={<><Header /><AboutUsPage /></>} />
+          <Route path="/contact" element={<><Header /><ContactPage /></>} />
 
           {/* Fallback */}
-          <Route path="*" element={<NotFoundPage />} />
+          <Route path="*" element={<><Header /><NotFoundPage /><Footer /></>} />
         </Routes>
-      </div>
-    </Router>
+      </Router>
+    </AuthProvider>
   );
 }
 

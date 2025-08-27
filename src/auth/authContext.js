@@ -1,6 +1,35 @@
-// src/auth/authContext.js
 import React, { createContext, useState, useEffect, useContext } from "react";
-import { loginAdmin, logout as logoutService, getCurrentUser, getToken } from "./authService";
+
+// Mock authService for simulation
+export const loginAdmin = async (email, password) => {
+  // Simulate backend delay
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      if (email === "admin@example.com" && password === "admin123") {
+        resolve({
+          data: {
+            user: { id: 1, name: "Admin User", role: "admin" },
+            token: "fake-jwt-token",
+          },
+        });
+      } else {
+        resolve({});
+      }
+    }, 500);
+  });
+};
+
+export const logout = () => {
+  localStorage.removeItem("user");
+  localStorage.removeItem("token");
+};
+
+export const getCurrentUser = () => {
+  const user = localStorage.getItem("user");
+  return user ? JSON.parse(user) : null;
+};
+
+export const getToken = () => localStorage.getItem("token");
 
 const AuthContext = createContext({});
 
@@ -16,7 +45,7 @@ export const AuthProvider = ({ children }) => {
   }, []);
 
   const login = async (email, password) => {
-    const response = await loginAdmin(email, password); // mock frontend login
+    const response = await loginAdmin(email, password);
     if (response?.data?.user && response?.data?.token) {
       setUser(response.data.user);
       setToken(response.data.token);
@@ -26,25 +55,25 @@ export const AuthProvider = ({ children }) => {
     return response;
   };
 
-  // ✅ setAuth function provided
   const setAuth = ({ user, token }) => {
-    if (user) setUser(user);
-    if (token) setToken(token);
-
-    if (user) localStorage.setItem("user", JSON.stringify(user));
-    if (token) localStorage.setItem("token", token);
+    if (user) {
+      setUser(user);
+      localStorage.setItem("user", JSON.stringify(user));
+    }
+    if (token) {
+      setToken(token);
+      localStorage.setItem("token", token);
+    }
   };
 
-  const logout = () => {
-    logoutService();
+  const logoutUser = () => {
+    logout();
     setUser(null);
     setToken(null);
-    localStorage.removeItem("user");
-    localStorage.removeItem("token");
   };
 
   return (
-    <AuthContext.Provider value={{ user, token, login, logout, setAuth, loading }}>
+    <AuthContext.Provider value={{ user, token, login, logout: logoutUser, setAuth, loading }}>
       {children}
     </AuthContext.Provider>
   );

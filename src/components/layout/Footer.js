@@ -50,20 +50,6 @@ const Footer = () => {
               About Us
             </Link>
 
-            {/* Admin links */}
-            {isAdmin && (
-              <>
-                <Link component={RouterLink} to="/admin/dashboard" color="inherit" underline="hover" variant="caption">
-                  Admin Dashboard
-                </Link>
-                <Link component={RouterLink} to="/admin/manage-categories" color="inherit" underline="hover" variant="caption">
-                  Manage Categories
-                </Link>
-                <Link component={RouterLink} to="/admin/manage-tiffins" color="inherit" underline="hover" variant="caption">
-                  Manage Tiffins
-                </Link>
-              </>
-            )}
 
             {/* Customer links */}
             {user && !isAdmin && (

@@ -1,6 +1,6 @@
 import React from "react";
 import AdminHeader from "../../components/layout/AdminHeader";
-import AdminFooter from "../../components/layout/AdminFooter";
+
 import { Box, Typography } from "@mui/material";
 
 const AdminDashboardPage = () => {
@@ -13,7 +13,7 @@ const AdminDashboardPage = () => {
           Manage tiffins, categories, and view orders here.
         </Typography>
       </Box>
-      <AdminFooter />
+     
     </>
   );
 };
