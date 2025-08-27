@@ -1,35 +1,122 @@
 // src/routes/AppRoutes.js
 import React from "react";
 import { Routes, Route } from "react-router-dom";
+
+// Layouts
+import CustomerLayout from "../components/layout/CustomerLayout";
+import AdminLayout from "../components/layout/AdminLayout";
+
+// Public / Customer Pages
 import HomePage from "../pages/HomePage";
 import AboutUsPage from "../pages/AboutUsPage";
 import ContactPage from "../pages/ContactPage";
 import NotFoundPage from "../pages/NotFoundPage";
-
-// Customer Pages
 import CustomerLoginPage from "../pages/customer/CustomerLoginPage";
 import CustomerRegisterPage from "../pages/customer/CustomerRegisterPage";
 import TiffinMenuPage from "../pages/customer/TiffinMenuPage";
 import OrderPage from "../pages/customer/OrderPage";
 import MyAccountPage from "../pages/customer/MyAccountPage";
 
+// Admin Pages
+import AdminLoginPage from "../pages/admin/AdminLoginPage";
+import AdminDashboardPage from "../pages/admin/AdminDashboardPage";
+
 export default function AppRoutes() {
   return (
     <Routes>
-      {/* Public Pages */}
-      <Route path="/" element={<HomePage />} />
-      <Route path="/about" element={<AboutUsPage />} />
-      <Route path="/contact" element={<ContactPage />} />
+      {/* Public / Customer Routes */}
+      <Route
+        path="/"
+        element={
+          <CustomerLayout>
+            <HomePage />
+          </CustomerLayout>
+        }
+      />
+      <Route
+        path="/about"
+        element={
+          <CustomerLayout>
+            <AboutUsPage />
+          </CustomerLayout>
+        }
+      />
+      <Route
+        path="/contact"
+        element={
+          <CustomerLayout>
+            <ContactPage />
+          </CustomerLayout>
+        }
+      />
+      <Route
+        path="/customer-login"
+        element={
+          <CustomerLayout>
+            <CustomerLoginPage />
+          </CustomerLayout>
+        }
+      />
+      <Route
+        path="/customer-register"
+        element={
+          <CustomerLayout>
+            <CustomerRegisterPage />
+          </CustomerLayout>
+        }
+      />
+      <Route
+        path="/customer-tiffin-menu"
+        element={
+          <CustomerLayout>
+            <TiffinMenuPage />
+          </CustomerLayout>
+        }
+      />
+      <Route
+        path="/order"
+        element={
+          <CustomerLayout>
+            <OrderPage />
+          </CustomerLayout>
+        }
+      />
+      <Route
+        path="/my-account"
+        element={
+          <CustomerLayout>
+            <MyAccountPage />
+          </CustomerLayout>
+        }
+      />
 
-      {/* Customer Pages */}
-      <Route path="/customer-login" element={<CustomerLoginPage />} />
-      <Route path="/customer-register" element={<CustomerRegisterPage />} />
-      <Route path="/customer-tiffin-menu" element={<TiffinMenuPage />} />
-      <Route path="/order" element={<OrderPage />} />
-      <Route path="/my-account" element={<MyAccountPage />} />
+      {/* Admin Routes */}
+      <Route
+        path="/admin/login"
+        element={
+          <AdminLayout>
+            <AdminLoginPage />
+          </AdminLayout>
+        }
+      />
+      <Route
+        path="/admin/dashboard"
+        element={
+          <AdminLayout>
+            <AdminDashboardPage />
+          </AdminLayout>
+        }
+      />
 
-      {/* 404 Page */}
-      <Route path="*" element={<NotFoundPage />} />
+      {/* 404 */}
+      <Route
+        path="*"
+        element={
+          <CustomerLayout>
+            <NotFoundPage />
+          </CustomerLayout>
+        }
+      />
     </Routes>
   );
 }

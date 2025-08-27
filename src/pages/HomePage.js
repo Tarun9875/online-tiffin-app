@@ -13,7 +13,7 @@ import { Link } from "react-router-dom"; // SPA navigation
 import Footer from "../components/layout/Footer";
 import { getTiffinMenu } from "../api/customerApi";
 
-const bannerImage = "/assets/images/bg.jpg";
+const bannerImage = "/assets/images/bg.jpg"; // Ensure this image exists
 const defaultTiffinImage = "/assets/images/tiffin-default.jpg";
 
 export default function HomePage() {
@@ -151,23 +151,6 @@ export default function HomePage() {
             ))}
           </Grid>
         )}
-      </Box>
-
-      {/* About Section */}
-      <Box sx={{ py: 5, px: 2, bgcolor: "#f5f5f5" }}>
-        <Typography variant="h4" gutterBottom textAlign="center">
-          About Us
-        </Typography>
-        <Typography
-          variant="body1"
-          textAlign="center"
-          maxWidth="800px"
-          mx="auto"
-        >
-          Online Tiffin App is dedicated to delivering fresh and hygienic meals
-          right to your doorstep. Our mission is to make daily meals convenient,
-          tasty, and healthy for everyone.
-        </Typography>
       </Box>
 
       <Footer />
