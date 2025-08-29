@@ -1,20 +1,15 @@
+// src/pages/admin/AdminDashboardPage.js
 import React from "react";
-import AdminHeader from "../../components/layout/AdminHeader";
-
-import { Box, Typography } from "@mui/material";
+import AdminLayout from "../../components/layout/AdminLayout";
+import DashboardStats from "../../features/admin/Dashboard/DashboardStats";
+import RecentOrders from "../../features/admin/Dashboard/RecentOrders";
 
 const AdminDashboardPage = () => {
   return (
-    <>
-      <AdminHeader />
-      <Box sx={{ mt: 10, p: 3 }}>
-        <Typography variant="h4">Welcome to Admin Dashboard</Typography>
-        <Typography sx={{ mt: 2 }}>
-          Manage tiffins, categories, and view orders here.
-        </Typography>
-      </Box>
-     
-    </>
+    <AdminLayout>
+      <DashboardStats />
+      <RecentOrders />
+    </AdminLayout>
   );
 };
 

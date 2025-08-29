@@ -1,40 +1,44 @@
+// src/components/layout/AdminLayout.js
 import React from "react";
-import { Box, Drawer, List, ListItem, ListItemText, Toolbar } from "@mui/material";
-import { Link, Outlet } from "react-router-dom";
+import { Box, AppBar, Toolbar, Typography, Drawer, List, ListItem, ListItemText } from "@mui/material";
 
 const drawerWidth = 240;
 
-const AdminLayout = () => {
-  const menuItems = [
-    { text: "Dashboard", to: "/admin/dashboard" },
-    { text: "Manage Categories", to: "/admin/manage-categories" },
-    { text: "Manage Tiffins", to: "/admin/manage-tiffins" },
-    { text: "Manage Orders", to: "/admin/manage-orders" },
-  ];
-
+const AdminLayout = ({ children }) => {
   return (
     <Box sx={{ display: "flex" }}>
+      {/* Sidebar */}
       <Drawer
         variant="permanent"
         sx={{
           width: drawerWidth,
           flexShrink: 0,
-          [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: "border-box" },
+          "& .MuiDrawer-paper": { width: drawerWidth, boxSizing: "border-box" },
         }}
       >
         <Toolbar />
-        <List>
-          {menuItems.map((item) => (
-            <ListItem button component={Link} to={item.to} key={item.text}>
-              <ListItemText primary={item.text} />
-            </ListItem>
-          ))}
-        </List>
+        <Box sx={{ overflow: "auto" }}>
+          <List>
+            {["Dashboard", "Manage Categories", "Manage Tiffins", "Manage Orders"].map((text) => (
+              <ListItem button key={text}>
+                <ListItemText primary={text} />
+              </ListItem>
+            ))}
+          </List>
+        </Box>
       </Drawer>
 
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      {/* Main Content */}
+      <Box component="main" sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}>
+        <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+          <Toolbar>
+            <Typography variant="h6" noWrap component="div">
+              Admin Dashboard
+            </Typography>
+          </Toolbar>
+        </AppBar>
         <Toolbar />
-        <Outlet /> {/* This renders the admin pages like Dashboard */}
+        {children}
       </Box>
     </Box>
   );
