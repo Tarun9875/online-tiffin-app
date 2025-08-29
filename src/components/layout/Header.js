@@ -43,9 +43,10 @@ export default function Header() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const toggleDrawer = (open) => () => setDrawerOpen(open);
 
-  // Menu links
+  // Menu links (added "Categories")
   const menuLinks = [
     { name: "Home", path: "/" },
+    { name: "Categories", path: "/categories" },  // <-- new
     { name: "Menu", path: "/customer-tiffin-menu" },
     { name: "Contact", path: "/contact" },
     ...(!user ? [{ name: "About Us", path: "/about-us" }] : []),

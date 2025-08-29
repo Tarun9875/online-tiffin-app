@@ -9,12 +9,13 @@ import Footer from "./components/layout/Footer";
 
 // Admin Layout
 import AdminHeader from "./components/layout/AdminHeader";
-import AdminFooter from "./components/layout/AdminFooter";
+//import AdminFooter from "./components/layout/AdminFooter";
 
 // Customer Pages
 import HomePage from "./pages/HomePage";
 import CustomerLoginPage from "./pages/customer/CustomerLoginPage";
 import CustomerRegisterPage from "./pages/customer/CustomerRegisterPage";
+import CategoriesPage from "./pages/customer/CategoriesPage"; // <-- added
 import TiffinMenuPage from "./pages/customer/TiffinMenuPage";
 import OrderPage from "./pages/customer/OrderPage";
 import MyOrders from "./pages/customer/MyOrders";
@@ -24,7 +25,8 @@ import EditMyProfilePage from "./pages/customer/EditMyProfilePage";
 // Admin Pages
 import AdminLoginPage from "./pages/admin/AdminLoginPage";
 import AdminDashboardPage from "./pages/admin/AdminDashboardPage";
-
+import ManageCategoriesPage from "./pages/admin/ManageCategoriesPage";//test
+import ManageTiffinsPage from "./pages/admin/ManageTiffinsPage";
 // Common Pages
 import AboutUsPage from "./pages/AboutUsPage";
 import ContactPage from "./pages/ContactPage";
@@ -37,8 +39,9 @@ function App() {
         <Routes>
           {/* Customer Routes */}
           <Route path="/" element={<><Header /><HomePage /></>} />
-          <Route path="/customer-login" element={<><Header /><CustomerLoginPage /><Footer/></>} />
-          <Route path="/customer-register" element={<><Header /><CustomerRegisterPage /><Footer/></>} />
+          <Route path="/customer-login" element={<><Header /><CustomerLoginPage /></>} />
+          <Route path="/customer-register" element={<><Header /><CustomerRegisterPage /></>} />
+          <Route path="/categories" element={<><Header /><CategoriesPage /></>} />  {/* <-- new */}
           <Route path="/customer-tiffin-menu" element={<><Header /><TiffinMenuPage /></>} />
           <Route path="/order" element={<><Header /><OrderPage /></>} />
           <Route path="/my-orders" element={<><Header /><MyOrders /></>} />
@@ -47,7 +50,9 @@ function App() {
 
           {/* Admin Routes */}
           <Route path="/admin/login" element={<><AdminLoginPage /></>} />
-          <Route path="/admin/dashboard" element={<><AdminHeader /><AdminDashboardPage /><AdminFooter /></>} />
+          <Route path="/admin/dashboard" element={<><AdminHeader /><AdminDashboardPage /></>} />
+          <Route path="/admin/manage-categories" element={<><AdminHeader /><ManageCategoriesPage /></>} /> {/*test*/}
+          <Route path="/admin/manage-tiffins" element={<><AdminHeader /><ManageTiffinsPage /></>} />
 
           {/* Common Routes */}
           <Route path="/about-us" element={<><Header /><AboutUsPage /></>} />

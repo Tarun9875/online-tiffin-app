@@ -1,10 +1,21 @@
 // src/components/layout/AdminLayout.js
 import React from "react";
-import { Box, AppBar, Toolbar, Typography, Drawer, List, ListItem, ListItemText } from "@mui/material";
+import { Box, Drawer, Toolbar, List, ListItem, ListItemText } from "@mui/material";
+import { Link, useLocation } from "react-router-dom";
+import AdminHeader from "./AdminHeader";
 
 const drawerWidth = 240;
 
 const AdminLayout = ({ children }) => {
+  const location = useLocation();
+
+  const menuItems = [
+    { text: "Dashboard", path: "/admin/dashboard" },
+    { text: "Manage Categories", path: "/admin/manage-categories" },
+    { text: "Manage Tiffins", path: "/admin/manage-tiffins" },
+    { text: "Manage Orders", path: "/admin/manage-orders" },
+  ];
+
   return (
     <Box sx={{ display: "flex" }}>
       {/* Sidebar */}
@@ -13,15 +24,24 @@ const AdminLayout = ({ children }) => {
         sx={{
           width: drawerWidth,
           flexShrink: 0,
-          "& .MuiDrawer-paper": { width: drawerWidth, boxSizing: "border-box" },
+          "& .MuiDrawer-paper": {
+            width: drawerWidth,
+            boxSizing: "border-box",
+          },
         }}
       >
         <Toolbar />
         <Box sx={{ overflow: "auto" }}>
           <List>
-            {["Dashboard", "Manage Categories", "Manage Tiffins", "Manage Orders"].map((text) => (
-              <ListItem button key={text}>
-                <ListItemText primary={text} />
+            {menuItems.map((item) => (
+              <ListItem
+                button
+                component={Link}
+                to={item.path}
+                key={item.text}
+                selected={location.pathname === item.path}
+              >
+                <ListItemText primary={item.text} />
               </ListItem>
             ))}
           </List>
@@ -29,15 +49,12 @@ const AdminLayout = ({ children }) => {
       </Drawer>
 
       {/* Main Content */}
-      <Box component="main" sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}>
-        <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
-          <Toolbar>
-            <Typography variant="h6" noWrap component="div">
-              Admin Dashboard
-            </Typography>
-          </Toolbar>
-        </AppBar>
-        <Toolbar />
+      <Box
+        component="main"
+        sx={{ flexGrow: 1, bgcolor: "background.default", p: 3 }}
+      >
+        <AdminHeader />
+        <Toolbar /> {/* spacing */}
         {children}
       </Box>
     </Box>

@@ -16,6 +16,7 @@ import CustomerRegisterPage from "../pages/customer/CustomerRegisterPage";
 import TiffinMenuPage from "../pages/customer/TiffinMenuPage";
 import OrderPage from "../pages/customer/OrderPage";
 import MyAccountPage from "../pages/customer/MyAccountPage";
+import CategoriesPage from "../pages/customer/CategoriesPage"; // <-- added
 
 // Admin Pages
 import AdminLoginPage from "../pages/admin/AdminLoginPage";
@@ -62,6 +63,14 @@ export default function AppRoutes() {
         element={
           <CustomerLayout>
             <CustomerRegisterPage />
+          </CustomerLayout>
+        }
+      />
+      <Route
+        path="/categories"   // <-- added
+        element={
+          <CustomerLayout>
+            <CategoriesPage />
           </CustomerLayout>
         }
       />
