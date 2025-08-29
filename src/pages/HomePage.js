@@ -1,30 +1,37 @@
 // src/pages/HomePage.js
 import React, { useEffect, useState } from "react";
 import {
-  Box,
-  Typography,
   Grid,
   Card,
   CardContent,
+  Typography,
   CardMedia,
-  Button
+  CircularProgress,
+  Pagination,
+  Box,
+  Button,
 } from "@mui/material";
-import { Link } from "react-router-dom"; // SPA navigation
+import { Link } from "react-router-dom";
 import Footer from "../components/layout/Footer";
 import { getTiffinMenu } from "../api/customerApi";
 
-const bannerImage = "/assets/images/bg.jpg"; // Ensure this image exists
+const bannerImage = "/assets/images/bg.jpg"; 
 const defaultTiffinImage = "/assets/images/tiffin-default.jpg";
 
 export default function HomePage() {
   const [tiffins, setTiffins] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [total, setTotal] = useState(0);
+  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
+  const limit = 8; // show 8 per page
 
   useEffect(() => {
     const fetchTiffins = async () => {
+      setLoading(true);
       try {
-        const res = await getTiffinMenu();
-        setTiffins(res.data);
+        const res = await getTiffinMenu(page, limit); // <-- update your API accordingly
+        setTiffins(res.data.tiffins || res.data); // adapt to your backend
+        setTotal(res.data.total || res.data.length);
       } catch (err) {
         console.error("Error fetching tiffins:", err);
       } finally {
@@ -32,7 +39,7 @@ export default function HomePage() {
       }
     };
     fetchTiffins();
-  }, []);
+  }, [page]);
 
   return (
     <Box>
@@ -49,7 +56,7 @@ export default function HomePage() {
           color: "#fff",
           textAlign: "center",
           px: 2,
-          mt: "-64px" // adjust for fixed header
+          mt: "-64px",
         }}
       >
         <Box>
@@ -79,78 +86,65 @@ export default function HomePage() {
         </Box>
       </Box>
 
-      {/* Featured Tiffins */}
-      <Box sx={{ py: 5, px: 2 }}>
-        <Typography variant="h4" gutterBottom textAlign="center" sx={{ mb: 4 }}>
-          Featured Tiffins
-        </Typography>
-
+      {/* Featured Tiffins Grid */}
+      <Box display="flex" flexDirection="column" alignItems="center" mt={4} px={2}>
         {loading ? (
-          <Typography textAlign="center">Loading...</Typography>
+          <Box display="flex" justifyContent="center" mt={5}>
+            <CircularProgress />
+          </Box>
         ) : (
-          <Grid container spacing={4} justifyContent="center">
+          <Grid container spacing={3} justifyContent="center" maxWidth={1200}>
             {tiffins.map((tiffin) => (
-              <Grid
-                item
-                key={tiffin._id}
-                xs={12}
-                sm={6}
-                md={4}
-                sx={{ display: "flex", justifyContent: "center", padding: 1 }}
-              >
+              <Grid item key={tiffin._id} xs={12} sm={6} md={4} lg={3}>
                 <Card
                   sx={{
-                    width: "100%",
-                    maxWidth: 350,
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
+                    width: 280,
+                    m: 1,
                     boxShadow: 3,
                     borderRadius: 2,
-                    overflow: "hidden",
-                    transition: "transform 0.3s",
-                    "&:hover": { transform: "scale(1.03)" }
+                    display: "flex",
+                    flexDirection: "column",
                   }}
                 >
                   <CardMedia
                     component="img"
-                    sx={{
-                      width: "100%",
-                      height: 220,
-                      objectFit: "cover",
-                      backgroundColor: "#f0f0f0"
-                    }}
+                    height="160"
                     image={tiffin.image || defaultTiffinImage}
                     alt={tiffin.name}
                   />
-                  <CardContent sx={{ textAlign: "center", flex: 1 }}>
+                  <CardContent sx={{ flexGrow: 1 }}>
                     <Typography variant="h6">{tiffin.name}</Typography>
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
-                      sx={{ mb: 1 }}
-                    >
+                    <Typography variant="body2" color="text.secondary">
                       {tiffin.description}
                     </Typography>
-                    <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
+                    <Typography variant="body1" color="primary" fontWeight="bold">
                       ₹{tiffin.price}
                     </Typography>
+                  </CardContent>
+                  <Box textAlign="center" pb={2}>
                     <Button
                       variant="contained"
                       size="small"
-                      color="primary"
                       component={Link}
                       to="/customer-tiffin-menu"
-                      sx={{ mt: 1 }}
                     >
                       Order Now
                     </Button>
-                  </CardContent>
+                  </Box>
                 </Card>
               </Grid>
             ))}
           </Grid>
         )}
+
+        {/* Pagination */}
+        <Box mt={3}>
+          <Pagination
+            count={Math.ceil(total / limit)}
+            page={page}
+            onChange={(e, val) => setPage(val)}
+          />
+        </Box>
       </Box>
 
       <Footer />
