@@ -7,7 +7,6 @@ import {
   Button,
   Table,
   TableBody,
-  TableCell,
   TableContainer,
   TableHead,
   TableRow,
@@ -15,8 +14,8 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogActions,
   CircularProgress,
+  TableCell,
 } from "@mui/material";
 import { Edit, Delete } from "@mui/icons-material";
 import AdminLayout from "../../components/layout/AdminLayout";
@@ -172,9 +171,6 @@ export default function ManageTiffinsPage() {
               onRefresh={fetchTiffins}
             />
           </DialogContent>
-          <DialogActions>
-            <Button onClick={handleCloseDialog}>Cancel</Button>
-          </DialogActions>
         </Dialog>
       </Box>
     </AdminLayout>

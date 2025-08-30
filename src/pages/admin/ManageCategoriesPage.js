@@ -1,3 +1,4 @@
+// src/pages/admin/ManageCategoriesPage.js
 import React, { useState, useEffect } from "react";
 import {
   Box,
@@ -14,7 +15,6 @@ import {
   Dialog,
   DialogTitle,
   DialogContent,
-  DialogActions,
   CircularProgress,
 } from "@mui/material";
 import { Edit, Delete } from "@mui/icons-material";
@@ -97,6 +97,7 @@ export default function ManageCategoriesPage() {
                     <TableCell sx={{ color: "#fff" }}>No.</TableCell>
                     <TableCell sx={{ color: "#fff" }}>ID</TableCell>
                     <TableCell sx={{ color: "#fff" }}>Name</TableCell>
+                    <TableCell sx={{ color: "#fff" }}>Type</TableCell>
                     <TableCell sx={{ color: "#fff" }}>Description</TableCell>
                     <TableCell sx={{ color: "#fff" }}>Image</TableCell>
                     <TableCell sx={{ color: "#fff" }}>Actions</TableCell>
@@ -108,6 +109,7 @@ export default function ManageCategoriesPage() {
                       <TableCell>{index + 1}</TableCell>
                       <TableCell>{cat._id}</TableCell>
                       <TableCell>{cat.name}</TableCell>
+                      <TableCell>{cat.type || "-"}</TableCell>
                       <TableCell>{cat.description}</TableCell>
                       <TableCell>
                         {cat.image ? (
@@ -143,7 +145,7 @@ export default function ManageCategoriesPage() {
                   ))}
                   {categories.length === 0 && (
                     <TableRow>
-                      <TableCell colSpan={6} align="center">
+                      <TableCell colSpan={7} align="center">
                         No categories found
                       </TableCell>
                     </TableRow>
@@ -171,9 +173,6 @@ export default function ManageCategoriesPage() {
               onRefresh={fetchCategories}
             />
           </DialogContent>
-          <DialogActions>
-            <Button onClick={handleCloseDialog}>Cancel</Button>
-          </DialogActions>
         </Dialog>
       </Box>
     </AdminLayout>
